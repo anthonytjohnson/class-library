@@ -2,7 +2,7 @@ class Media {
   constructor(title) {
     this._title = title;
     this._isCheckedOut = false;
-    this._ratings = {};
+    this._ratings = [];
   }
 
   get title() {
@@ -26,13 +26,12 @@ class Media {
   }
 
   getAverageRating() {
-    let ratingsSum = this._ratings.reduce((acc, rating) => acc + rating, 0);
-    return ratingsSum / this._ratings.length;
+    let ratingsSum = this.ratings.reduce((acc, rating) => acc + rating, 0);
+    return ratingsSum / this.ratings.length;
   }
 
   addRating(rating) {
-    this._ratings.push(rating);
-    return this._ratings;
+    this.ratings.push(rating);
   }
 }
 
@@ -67,3 +66,21 @@ class Movie extends Media {
     return this._runTime;
   }
 }
+
+const historyOfEverything = new Book('Bill Bryson', 'A Short History of Nearly Everyting', 544);
+
+historyOfEverything.toggleCheckOutStatus();
+console.log(historyOfEverything.isCheckedOut);
+
+historyOfEverything.addRating(4);
+historyOfEverything.addRating(5);
+historyOfEverything.addRating(5);
+console.log(historyOfEverything.getAverageRating());
+
+const speed = new Movie('Jan de Bont', 'Speed', 116);
+speed.toggleCheckOutStatus();
+console.log(speed.isCheckedOut);
+speed.addRating(1);
+speed.addRating(1);
+speed.addRating(5);
+console.log(speed.getAverageRating());
